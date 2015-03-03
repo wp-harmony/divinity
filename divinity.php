@@ -1,6 +1,8 @@
 <?php
 /**
- * Divinity Templates
+ * Divinity - Templating Libary
+ *
+ * Part of the Harmony Group
  *
  * A template loader module that loads a template from dynamic locations
  * (usually the themes TEMPLATES_PATH) and sets up variables to be 
@@ -8,11 +10,10 @@
  * and variables (data) can be changed/overridden. 
  *
  * @package Divinity
- * @uses	Location_Helpers
+ * @subpackage Harmony
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
- * @version 1.1.0
- * @uses    Glyph, Charms
+ * @version 2.0.0
  */
 
 require('helpers.php');
@@ -24,20 +25,6 @@ require('helpers.php');
  */
 function divinity_init()
 {
-	spl_autoload_register(function ($class) {
-		$prefix = 'Foo\\Bar\\';
-		$base_dir = __DIR__ . '/src/';
-		$len = strlen($prefix);
-		if (strncmp($prefix, $class, $len) !== 0) {
-			return;
-		}
-		$relative_class = substr($class, $len);
-		$file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
-		if (file_exists($file)) {
-			require $file;
-		}
-	});
-
 	$engines = array(new Divinity\Engine\PHP);
 
 	if (class_exists('Mustache_Template')) {
