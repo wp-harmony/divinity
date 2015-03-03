@@ -2,6 +2,8 @@
 namespace Harmony\Divinity\Engine;
 
 use Harmony\Divinity\Contract\TemplateEngine;
+use Twig_Loader_Filesystem;
+use Twig_Environment;
 
 /**
  * Divinity Template Engine

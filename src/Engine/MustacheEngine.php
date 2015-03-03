@@ -2,6 +2,8 @@
 namespace Harmony\Divinity\Engine;
 
 use Harmony\Divinity\Contract\TemplateEngine;
+use Mustache_Loader_FilesystemLoader;
+use Mustache_Engine;
 
 /**
  * Divinity Template Engine

@@ -35,7 +35,7 @@ if ( ! function_exists('template') )
 	 * 
 	 * @param  string   			$request 
 	 * @param  Traversable|array	$data
-	 * @return Divinity_Template
+	 * @return Harmony\Divinity\Template
 	 */
 	function template($request, $data = array())
 	{

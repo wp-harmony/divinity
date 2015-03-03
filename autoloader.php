@@ -34,3 +34,5 @@ spl_autoload_register(function ($class) {
         require $file;
     }
 });
+
+define('DIVINITY_AUTOLOADED', true);

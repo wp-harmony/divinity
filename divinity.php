@@ -54,4 +54,5 @@ function divinity_init()
 
 	do_action('divinity_loaded', $factory);
 }
-add_action('harmony_loaded' , 'divinity_init', 90);
+
+divinity_init();

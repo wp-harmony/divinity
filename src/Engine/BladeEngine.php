@@ -2,6 +2,7 @@
 namespace Harmony\Divinity\Engine;
 
 use Harmony\Divinity\Contract\TemplateEngine;
+use Illuminate;
 
 /**
  * Divinity Template Engine
