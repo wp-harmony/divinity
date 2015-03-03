@@ -1,4 +1,6 @@
 <?php
+namespace Harmony\Divinity\Contract;
+
 /**
  * Divinity Template Engine
  *
@@ -7,9 +9,8 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-class Divinity_Engine_PHP implements Divinity_Engine
+interface TemplateEngine
 {
-
 	/**
 	 * Compile and output the template
 	 * 
@@ -18,12 +19,7 @@ class Divinity_Engine_PHP implements Divinity_Engine
 	 * @param array  $data
 	 * @return boolean
 	 */
-	public function render($template_dir, $template, $data)
-	{
-		extract($data);
-		require($template_dir . $template);
-		return true;
-	}
+	public function render($template_dir, $template, $data);
 	
 	/**
 	 * Compile and return the template
@@ -33,22 +29,12 @@ class Divinity_Engine_PHP implements Divinity_Engine
 	 * @param array  $data
 	 * @return string
 	 */
-	public function compile($template_dir, $template, $data)
-	{
-		extract($data);
-		ob_start();
-		require($template_dir . $template);
-		return ob_get_clean();
-	}
-	
+	public function compile($template_dir, $template, $data);
+
 	/**
 	 * Return the file extensions this engine supports, with the leading dot
 	 * 
 	 * @return array
 	 */
-	public function get_extensions()
-	{
-		return array('.php');
-	}
-
+	public function get_extensions();
 }

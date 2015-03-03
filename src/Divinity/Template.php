@@ -1,4 +1,7 @@
 <?php
+namespace Harmony\Divinity;
+
+use Harmony\Divinity\Contract\TemplateEngine;
 
 /**
  * Class wrapper for the render and compile template functions
@@ -7,7 +10,8 @@
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class Divinity_Template extends Glyph
+
+class Template extends Glyph
 {	
 	/**
 	 * Template directory where a collection of templates are stored
@@ -26,7 +30,7 @@ class Divinity_Template extends Glyph
 	/**
 	 * Template engine for the template
 	 * 
-	 * @var Divinity_Engine
+	 * @var TemplateEngine
 	 */
 	protected $engine;
 
@@ -35,10 +39,10 @@ class Divinity_Template extends Glyph
 	 *
 	 * @param string          $template_directory
 	 * @param string          $template
-	 * @param Divinity_Engine $engine
+	 * @param TemplateEngine  $engine
 	 * @param array           $data
 	 */
-	public function __construct($template_directory, $template, Divinity_Engine $engine, array $data = array())
+	public function __construct($template_directory, $template, TemplateEngine $engine, array $data = array())
 	{
 		$this->template_directory = $template_directory;
 		$this->template = $template;
@@ -49,10 +53,10 @@ class Divinity_Template extends Glyph
 	/**
 	 * Set the template engine
 	 * 
-	 * @param Divinity_Engine $template
+	 * @param TemplateEngine $template
 	 * @return self
 	 */
-	public function set_engine(Divinity_Engine $engine)
+	public function set_engine(TemplateEngine $engine)
 	{
 		$this->engine = $engine;
 		return $this;

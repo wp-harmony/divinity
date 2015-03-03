@@ -1,4 +1,8 @@
 <?php
+namespace Harmony\Divinity\Engine;
+
+use Harmony\Divinity\Contract\TemplateEngine;
+
 /**
  * Divinity Template Engine
  *
@@ -7,7 +11,7 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-class Divinity_Engine_Blade implements Divinity_Engine
+class BladeEngine implements TemplateEngine
 {
 
 	/**

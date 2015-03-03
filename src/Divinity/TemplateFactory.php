@@ -1,4 +1,8 @@
 <?php
+namespace Harmony\Divinity;
+
+use Harmony\Divinity\Contract\TemplateEngine;
+use Harmony\Divinity\Template;
 
 /**
  * Builds Divinity Templates
@@ -7,7 +11,8 @@
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class Divinity_TemplateFactory
+
+class TemplateFactory
 {
 	private $directories = [];
 
@@ -72,7 +77,7 @@ class Divinity_TemplateFactory
 		foreach ($this->engines as $engine) {
 			foreach ($engine->get_extensions() as $ext) {
 				if (file_exists($directory . $path . $ext)) {
-					return new Divinity_Template($directory, $path . $ext, $engine);
+					return new Template($directory, $path . $ext, $engine);
 				}
 			}
 		}
@@ -87,7 +92,7 @@ class Divinity_TemplateFactory
 		}
 	}
 
-	public function add_engine(Divinity_Engine $engine)
+	public function add_engine(TemplateEngine $engine)
 	{
 		$this->engines[] = $engine;	
 	}
