@@ -22,7 +22,7 @@ if ( ! defined('DIVINITY_AUTOLOADED') ) {
 	require('autoloader.php');
 }
 
-require('helpers.php');
+require('functions.php');
 
 /**
  * Add the divinity oop structure to the psr-0 class loader and register engines
