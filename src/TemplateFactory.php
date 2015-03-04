@@ -1,6 +1,7 @@
 <?php
 namespace Harmony\Divinity;
 
+use Harmony\Divinity\Contract\TemplateFactory as TemplateFactoryInterface;
 use Harmony\Divinity\Contract\TemplateEngine;
 use Harmony\Divinity\Template;
 
@@ -12,7 +13,7 @@ use Harmony\Divinity\Template;
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-class TemplateFactory
+class TemplateFactory implements TemplateFactoryInterface
 {
 	private $directories = [];
 

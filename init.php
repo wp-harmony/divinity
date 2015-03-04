@@ -9,6 +9,8 @@
  * include in the templates scope. Using the render_template action the path 
  * and variables (data) can be changed/overridden. 
  *
+ * Plugin Name: Harmony - Divinity
+ * 
  * @package Divinity
  * @subpackage Harmony
  * @author  Simon Holloway <holloway.sy@gmail.com>
@@ -41,7 +43,7 @@ function divinity_init()
 		$engines[] = new Harmony\Divinity\Engine\BladeEngine;
 	}
 
-	$directories = array(get_template_path());
+	$directories = array(get_theme_root() . '/harmony/templates');
 
 	divinity_factory(new Harmony\Divinity\TemplateFactory($directories, $engines));
 

@@ -2,6 +2,8 @@
 namespace Harmony\Divinity;
 
 use Harmony\Divinity\Contract\TemplateEngine;
+use Harmony\Runes\Map;
+
 
 /**
  * Class wrapper for the render and compile template functions
@@ -11,7 +13,7 @@ use Harmony\Divinity\Contract\TemplateEngine;
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-class Template extends Glyph
+class Template extends Map
 {	
 	/**
 	 * Template directory where a collection of templates are stored
