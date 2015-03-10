@@ -1,32 +1,12 @@
 <?php
 /**
- * Template helpers
+ * Divinity Functions
  *
- * @package Template
- * @author  Simon Holloway <holloway.sy@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT
+ * @package    Harmony
+ * @subpackage Divinity
+ * @author     Simon Holloway <holloway.sy@gmail.com>
+ * @license    http://opensource.org/licenses/MIT MIT
  */
-
-if ( ! function_exists('divinity_factory') )
-{
-	/**
-	 * Get or set the divinity factory, Will always return the current factory
-	 * and passing in a new factory will replace the current one.
-	 * 
-	 * @param $factory Divinity\Contract\TemplateFactory
-	 * @return Divinity\Contract\TemplateFactory
-	 */
-	function divinity_factory(Harmony\Divinity\Contract\TemplateFactory $factory = null)
-	{
-		static $staticFactory;
-
-		if ($factory) {
-			$staticFactory = $factory;
-		}
-
-		return $staticFactory;
-	}
-}
 
 if ( ! function_exists('template') )
 {
@@ -39,7 +19,7 @@ if ( ! function_exists('template') )
 	 */
 	function template($request, $data = array())
 	{
-		return divinity_factory()->create_template($request, $data);
+		return registery('divinity.factory')->create_template($request, $data);
 	}	
 }
 
@@ -59,7 +39,7 @@ if ( ! function_exists('compile_template') )
 	 */
 	function compile_template($request, array $data = array())
 	{
-		return divinity_factory()->create_template($request, $data)->compile();
+		return registery('divinity.factory')->create_template($request, $data)->compile();
 	}	
 }
 
@@ -79,7 +59,7 @@ if ( ! function_exists('render_template') )
 	 */
 	function render_template($request, array $data = array())
 	{
-		return divinity_factory()->create_template($request, $data)->render();
+		return registery('divinity.factory')->create_template($request, $data)->render();
 	}
 }
 

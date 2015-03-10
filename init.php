@@ -1,35 +1,30 @@
 <?php
 /**
- * Divinity - Templating Libary
+ * Divinity - Templating Library
  *
- * Part of the Harmony Group
+ * Part of the Harmony Group 
  *
- * A template loader module that loads a template from dynamic locations
- * (usually the themes TEMPLATES_PATH) and sets up variables to be 
- * include in the templates scope. Using the render_template action the path 
- * and variables (data) can be changed/overridden. 
- *
- * Plugin Name: Harmony - Divinity
+ * Plugin Name: Harmony Divinity
+ * Depends: Harmony Runes
  * 
- * @package Divinity
- * @subpackage Harmony
- * @author  Simon Holloway <holloway.sy@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT
- * @version 2.0.0
+ * @package    Harmony
+ * @subpackage Divinity
+ * @author     Simon Holloway <holloway.sy@gmail.com>
+ * @license    http://opensource.org/licenses/MIT MIT
+ * @version    2.0.0
  */
 
-if ( ! defined('DIVINITY_AUTOLOADED') ) {
-	require('autoloader.php');
-}
-
-require('functions.php');
+// Register the autoloader and retrive the on ready handler
+$onReady = require('autoloader.php');
 
 /**
+ * Initialize Divinity
+ * 
  * Add the divinity oop structure to the psr-0 class loader and register engines
  * 
  * @return void
  */
-function divinity_init()
+$onReady(function()
 {
 	$engines = array(new Harmony\Divinity\Engine\PhpEngine);
 
@@ -45,7 +40,7 @@ function divinity_init()
 
 	$directories = array(get_theme_root() . '/harmony/templates');
 
-	divinity_factory(new Harmony\Divinity\TemplateFactory($directories, $engines));
+	registery('divinity.factory', new Harmony\Divinity\TemplateFactory($directories, $engines));
 
 	// Make sure a cache directory is set up
 	$upload_dir = wp_upload_dir();
@@ -54,7 +49,7 @@ function divinity_init()
 		mkdir($cache, 0755, true);
 	}
 
+	define('DIVINITY_LOADED', true);
 	do_action('divinity_loaded', $factory);
-}
+});
 
-divinity_init();
