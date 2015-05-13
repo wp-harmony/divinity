@@ -44,12 +44,7 @@ function divinity_boot($app)
 
 	$app['divinity.factory'] = $factory = new TemplateFactory($locations, $engines);
 
-	// Make sure a cache directory is set up
-	$upload_dir = wp_upload_dir();
-	$cache = $upload_dir['basedir'] . '/cache';
-	if( ! is_dir($cache) ) {
-		mkdir($cache, 0775, true);
-	}
+	confirm_divinity_cache();
 
 	do_action('divinity_loaded', $factory);
 }
@@ -57,7 +52,20 @@ function divinity_boot($app)
 add_action('harmony_boot', 'divinity_boot');
 
 /**
- * 
+ * Make sure that a cache directory is available for compiled templates
+ */
+function confirm_divinity_cache()
+{
+	// Make sure a cache directory is set up
+	$upload_dir = wp_upload_dir();
+	$cache = $upload_dir['basedir'] . '/cache';
+	if( ! is_dir($cache) ) {
+		mkdir($cache, 0775, true);
+	}
+}
+
+/**
+ * Get the default divinity engines
  * 
  * @return array
  */
@@ -79,7 +87,7 @@ function get_default_divinity_engines()
 }
 
 /**
- * 
+ * Get the default divinity locations
  * 
  * @return array
  */
