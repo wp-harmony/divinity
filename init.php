@@ -5,7 +5,7 @@
  * Part of the Harmony Group 
  *
  * Plugin Name: Harmony Divinity
- * Depends: Harmony Runes
+ * Depends: Harmony Mana
  * 
  * @package    Harmony
  * @subpackage Divinity
@@ -14,42 +14,78 @@
  * @version    2.0.0
  */
 
-// Register the autoloader and retrive the on ready handler
-$onReady = require('autoloader.php');
+use Harmony\Divinity\Engine\PhpEngine;
+use Harmony\Divinity\Engine\MustacheEngine;
+use Harmony\Divinity\Engine\TwigEngine;
+use Harmony\Divinity\Engine\BladeEngine;
+use Harmony\Divinity\TemplateFactory;
 
 /**
- * Initialize Divinity
- * 
- * Add the divinity oop structure to the psr-0 class loader and register engines
+ * Register Divinity
  * 
  * @return void
  */
-$onReady(function()
+function divinity_register($app)
 {
-	$engines = array(new Harmony\Divinity\Engine\PhpEngine);
+	$app['autoloader']['Harmony\\Divinity'] = dirname(__FILE__) . '/src';
+}
 
-	if (class_exists('Mustache_Template')) {
-		$engines[] = new Harmony\Divinity\Engine\MustacheEngine;
-	}
-	if (class_exists('Twig_Template')) {
-		$engines[] = new Harmony\Divinity\Engine\TwigEngine;
-	}
-	if (class_exists('Illuminate\View\Compilers\BladeCompiler')) {
-		$engines[] = new Harmony\Divinity\Engine\BladeEngine;
-	}
+add_action('harmony_register', 'divinity_register');
 
-	$directories = array(get_theme_root() . '/harmony/templates');
+/**
+ * Boot Divinity
+ * 
+ * @param $app
+ */
+function divinity_boot($app)
+{
+	$locations = get_default_divinity_locations();
+	$engines = get_default_divinity_engines();
 
-	registery('divinity.factory', new Harmony\Divinity\TemplateFactory($directories, $engines));
+	$app['divinity.factory'] = $factory = new TemplateFactory($locations, $engines);
 
 	// Make sure a cache directory is set up
 	$upload_dir = wp_upload_dir();
 	$cache = $upload_dir['basedir'] . '/cache';
 	if( ! is_dir($cache) ) {
-		mkdir($cache, 0755, true);
+		mkdir($cache, 0775, true);
 	}
 
-	define('DIVINITY_LOADED', true);
 	do_action('divinity_loaded', $factory);
-});
+}
 
+add_action('harmony_boot', 'divinity_boot');
+
+/**
+ * 
+ * 
+ * @return array
+ */
+function get_default_divinity_engines()
+{
+	$engines = array(new PhpEngine);
+
+	if (class_exists('Mustache_Template')) {
+		$engines[] = new MustacheEngine;
+	}
+	if (class_exists('Twig_Template')) {
+		$engines[] = new TwigEngine;
+	}
+	if (class_exists('Illuminate\View\Compilers\BladeCompiler')) {
+		$engines[] = new BladeEngine;
+	}
+
+	return apply_filters('default_divnity_engines', $engines);
+}
+
+/**
+ * 
+ * 
+ * @return array
+ */
+function get_default_divinity_locations()
+{
+	$locations = array(get_template_directory() . '/templates');
+
+	return apply_filters('default_divnity_locations', $locations);
+}

@@ -19,7 +19,7 @@ if ( ! function_exists('template') )
 	 */
 	function template($request, $data = array())
 	{
-		return registery('divinity.factory')->create_template($request, $data);
+		return app('divinity.factory')->create_template($request, $data);
 	}	
 }
 
@@ -39,7 +39,7 @@ if ( ! function_exists('compile_template') )
 	 */
 	function compile_template($request, array $data = array())
 	{
-		return registery('divinity.factory')->create_template($request, $data)->compile();
+		return app('divinity.factory')->create_template($request, $data)->compile();
 	}	
 }
 
@@ -59,7 +59,7 @@ if ( ! function_exists('render_template') )
 	 */
 	function render_template($request, array $data = array())
 	{
-		return registery('divinity.factory')->create_template($request, $data)->render();
+		return app('divinity.factory')->create_template($request, $data)->render();
 	}
 }
 
