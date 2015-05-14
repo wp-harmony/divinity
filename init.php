@@ -28,6 +28,7 @@ use Harmony\Divinity\TemplateFactory;
 function divinity_register($app)
 {
 	$app['autoloader']['Harmony\\Divinity'] = dirname(__FILE__) . '/src';
+	require('functions.php');
 }
 
 add_action('harmony_register', 'divinity_register');

@@ -2,7 +2,7 @@
 namespace Harmony\Divinity;
 
 use Harmony\Divinity\Contract\TemplateEngine;
-use Harmony\Runes\Map;
+use Harmony\Mana\Map;
 
 
 /**
