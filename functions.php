@@ -17,7 +17,7 @@ if ( ! function_exists('template') )
 	 * @param  Traversable|array	$data
 	 * @return Harmony\Divinity\Template
 	 */
-	function template($request, $data = array())
+	function template($request, $data = [])
 	{
 		return app('divinity.factory')->create_template($request, $data);
 	}	
@@ -37,7 +37,7 @@ if ( ! function_exists('compile_template') )
 	 * @param  array	$data
 	 * @return void|string
 	 */
-	function compile_template($request, array $data = array())
+	function compile_template($request, array $data = [])
 	{
 		return app('divinity.factory')->create_template($request, $data)->compile();
 	}	
@@ -57,7 +57,7 @@ if ( ! function_exists('render_template') )
 	 * @param  array	$data
 	 * @return void|string
 	 */
-	function render_template($request, array $data = array())
+	function render_template($request, array $data = [])
 	{
 		return app('divinity.factory')->create_template($request, $data)->render();
 	}
@@ -73,7 +73,7 @@ if ( ! function_exists('flatten_attributes') )
 	 */
 	function flatten_attributes($attributes)
 	{
-		$attrs = array();
+		$attrs = [];
 		foreach ($attributes as $key => $value) {
 			$value = is_array($value) ? implode(' ', $value) : $value ;
 			$attrs[] = $key . '="' . $value . '"';

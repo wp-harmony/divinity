@@ -41,9 +41,9 @@ class TwigEngine implements TemplateEngine
 	public function compile($directory, $path, $data)
 	{
 		$loader = new Twig_Loader_Filesystem($directory);
-		$options = array(
+		$options = [
 			'cache' => $this->get_cache_dir()
-		);
+		];
 		$twig = new Twig_Environment($loader, $options);
 		return $twig->loadTemplate($path)->render($data);
 	}
@@ -55,7 +55,7 @@ class TwigEngine implements TemplateEngine
 	 */
 	public function get_extensions()
 	{
-		return array('.twig');
+		return ['.twig'];
 	}
 	
 	/**

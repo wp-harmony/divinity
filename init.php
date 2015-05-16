@@ -19,6 +19,7 @@ use Harmony\Divinity\Engine\MustacheEngine;
 use Harmony\Divinity\Engine\TwigEngine;
 use Harmony\Divinity\Engine\BladeEngine;
 use Harmony\Divinity\TemplateFactory;
+use Harmony\Mana\Invokable;
 
 /**
  * Register Divinity
@@ -40,10 +41,10 @@ add_action('harmony_register', 'divinity_register');
  */
 function divinity_boot($app)
 {
-	$locations = get_default_divinity_locations();
-	$engines = get_default_divinity_engines();
-
-	$app['divinity.factory'] = $factory = new TemplateFactory($locations, $engines);
+	$app['divinity.factory'] = $factory = new TemplateFactory(
+		new Invokable('get_divinity_locations'), 
+		new Invokable('get_divinity_engines')
+	);
 
 	confirm_divinity_cache();
 
@@ -70,21 +71,28 @@ function confirm_divinity_cache()
  * 
  * @return array
  */
-function get_default_divinity_engines()
+function get_divinity_engines()
 {
-	$engines = array(new PhpEngine);
+	$engines = app()->get('divnity.defaults.engines', []);
+	
+	if (empty($engines)) {
 
-	if (class_exists('Mustache_Template')) {
-		$engines[] = new MustacheEngine;
-	}
-	if (class_exists('Twig_Template')) {
-		$engines[] = new TwigEngine;
-	}
-	if (class_exists('Illuminate\View\Compilers\BladeCompiler')) {
-		$engines[] = new BladeEngine;
+		$engines[] = new PhpEngine;
+
+		if (class_exists('Mustache_Template')) {
+			$engines[] = new MustacheEngine;
+		}
+		if (class_exists('Twig_Template')) {
+			$engines[] = new TwigEngine;
+		}
+		if (class_exists('Illuminate\View\Compilers\BladeCompiler')) {
+			$engines[] = new BladeEngine;
+		}
 	}
 
-	return apply_filters('default_divnity_engines', $engines);
+	app('divnity.defaults.engines', $engines);
+
+	return apply_filters('divnity_engines', $engines);
 }
 
 /**
@@ -92,9 +100,9 @@ function get_default_divinity_engines()
  * 
  * @return array
  */
-function get_default_divinity_locations()
+function get_divinity_locations()
 {
-	$locations = array(get_template_directory() . '/templates');
+	$locations = [get_template_directory() . '/templates'];
 
-	return apply_filters('default_divnity_locations', $locations);
+	return apply_filters('divnity_locations', $locations);
 }

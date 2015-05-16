@@ -52,7 +52,7 @@ class PhpEngine implements TemplateEngine
 	 */
 	public function get_extensions()
 	{
-		return array('.php');
+		return ['.php'];
 	}
 
 }

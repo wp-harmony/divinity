@@ -18,5 +18,5 @@ interface TemplateFactory
 	 * @param  Traversable|array	$data
 	 * @return Harmony\Divinity\Template
 	 */
-	public function create_template($request, $data = array());
+	public function create_template($request, $data = []);
 }

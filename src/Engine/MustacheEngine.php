@@ -44,10 +44,10 @@ class MustacheEngine implements TemplateEngine
 			$path = str_replace($ext, '', $path);
 		}
 		$loader = new Mustache_Loader_FilesystemLoader($directory);
-		$options = array(
+		$options = [
 			'loader' => $loader,
 			'cache' => $this->get_cache_dir()
-		);
+		];
 		$mustache = new Mustache_Engine($options);
 		return $mustache->loadTemplate($path)->render($data);
 	}
@@ -59,7 +59,7 @@ class MustacheEngine implements TemplateEngine
 	 */
 	public function get_extensions()
 	{
-		return array('.mustache');
+		return ['.mustache'];
 	}
 
 	/**

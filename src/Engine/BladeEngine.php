@@ -69,7 +69,7 @@ class BladeEngine implements TemplateEngine
 	public function compile($directory, $path, $data)
 	{
 		$fs = $this->env->getFinder()->getFilesystem();
-		$finder = new Illuminate\View\FileViewFinder($fs, array($directory));
+		$finder = new Illuminate\View\FileViewFinder($fs, [$directory]);
 		$this->env->setFinder($finder);
 
 		foreach ($this->get_extensions() as $ext) {
@@ -85,7 +85,7 @@ class BladeEngine implements TemplateEngine
 	 */
 	public function get_extensions()
 	{
-		return array('.blade.php');
+		return ['.blade.php'];
 	}
 	
 	/**

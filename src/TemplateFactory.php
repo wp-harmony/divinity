@@ -19,14 +19,10 @@ class TemplateFactory implements TemplateFactoryInterface
 
 	private $engines = [];
 
-	public function __construct($directories, $engines)
+	public function __construct(callable $directory_accessor, callable $engine_accessor)
 	{
-		foreach ($directories as $directory) {
-			$this->add_directory($directory);
-		}
-		foreach ($engines as $engine) {
-			$this->add_engine($engine);
-		}
+		$this->directories = $directory_accessor;
+		$this->engines = $engine_accessor;
 	}
 
 	/** 
@@ -36,8 +32,9 @@ class TemplateFactory implements TemplateFactoryInterface
 	 * @param  Traversable|array	$data
 	 * @return Divinity_Template
 	 */
-	public function create_template($request, $data = array())
+	public function create_template($request, $data = [])
 	{
+		$request = str_replace(':', '/', $request);
 		if ($template = $this->itterate_directories($request)) {
 			$template->bulk_set($this->parse_data($data));
 			return $template;
@@ -57,7 +54,7 @@ class TemplateFactory implements TemplateFactoryInterface
 
 	private function itterate_directories($request)
 	{
-		foreach ($this->directories as $prefix => $directory) {
+		foreach (call_user_func($this->directories) as $prefix => $directory) {
 
 			$directory = trailingslashit($directory);
 
@@ -75,26 +72,12 @@ class TemplateFactory implements TemplateFactoryInterface
 
 	private function itterate_engines($directory, $path)
 	{
-		foreach ($this->engines as $engine) {
+		foreach (call_user_func($this->engines) as $engine) {
 			foreach ($engine->get_extensions() as $ext) {
 				if (file_exists($directory . $path . $ext)) {
 					return new Template($directory, $path . $ext, $engine);
 				}
 			}
 		}
-	}
-
-	public function add_directory($directory, $prefix = null)
-	{
-		if ($prefix) {
-			$this->directories[$prefix] = $directory;
-		} else {
-			$this->directories[] = $directory;
-		}
-	}
-
-	public function add_engine(TemplateEngine $engine)
-	{
-		$this->engines[] = $engine;	
 	}
 }

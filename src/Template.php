@@ -44,7 +44,7 @@ class Template extends Map
 	 * @param TemplateEngine  $engine
 	 * @param array           $data
 	 */
-	public function __construct($template_directory, $template, TemplateEngine $engine, array $data = array())
+	public function __construct($template_directory, $template, TemplateEngine $engine, array $data = [])
 	{
 		$this->template_directory = $template_directory;
 		$this->template = $template;
@@ -134,8 +134,8 @@ class Template extends Map
 	protected function notify()
 	{
 		list($template) = explode('.', $this->template);
-		do_action('template_bind', $this);
-		do_action('template_bind_' . $template, $this);
+		do_action('divinity_bind', $this);
+		do_action('divinity_bind_' . $template, $this);
 	}
 
 	public function apply_defaults($defaults)
